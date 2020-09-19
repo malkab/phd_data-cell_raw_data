@@ -1,0 +1,21 @@
+name: malkab-phd-data-main_cell_db
+root: /home/git/malkab-phd-data/malkab-phd-data-main_cell_db
+
+windows:
+  - workpackages: >
+      clear ;
+      sleep 1 ;
+      . mlkcontext common ;
+      cd work_packages
+  - psql: >
+      clear ;
+      sleep 5 ;
+      . mlkcontext common ;
+      cd docker/010-dev ;
+      ./110-psql.sh
+  - compose: >
+      clear ;
+      sleep 0.2 ;
+      . mlkcontext common ;
+      cd docker/010-dev ;
+      ./010-compose_up.sh

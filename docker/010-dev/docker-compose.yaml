@@ -1,0 +1,24 @@
+version: '3.5'
+
+networks:
+  phd_data:
+    external: false
+    name: ${MLKC_PHD_DATA_APP}
+
+services:
+  postgis:
+    image: malkab/postgis:gargantuan_giraffe
+    container_name: ${MLKC_PHD_DATA_APP}_postgis_dev
+
+    environment:
+      - PASSWORD=${MLKC_PHD_DATA_POSTGIS_PASSWORD}
+
+    networks:
+      - phd_data
+
+    ports:
+      - "${MLKC_PHD_DATA_PG_EXTERNAL_PORT}:5432"
+
+    volumes:
+      - ../../docker_persistent_volumes/postgis:/data
+      - ./config/postgis/postgresql.conf:/default_confs/postgresql.conf

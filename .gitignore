@@ -1,0 +1,11 @@
+.DS_Store
+docker_persistent_volumes/*
+data/000_in/*
+data/900_out/*
+# Added by mlkcontext
+# -------------------
+docker/020-production_images/assets/initdb.sh
+docker/020-production_images/assets/postgresql.conf
+docker/020-production_images/assets/pg_hba.conf
+docker/010-dev/config/postgis/postgresql.conf
+# -------------------
