@@ -7,5 +7,13 @@ data/900_out/*
 docker/020-production_images/assets/initdb.sh
 docker/020-production_images/assets/postgresql.conf
 docker/020-production_images/assets/pg_hba.conf
+docker/020-production_images/test/docker-compose.yaml
 docker/010-dev/config/postgis/postgresql.conf
+docker/030-swarms/docker-compose.yaml
+docker/030-swarms/010_docker_pull_gitlab.sh
+docker/030-swarms/INSTANCE
+docker/030-swarms/020_docker_stack_deploy.sh
+docker/030-swarms/910_docker_volume_rm.sh
+docker/030-swarms/900_docker_stack_remove.sh
+docker/030-swarms/110-psql.sh
 # -------------------

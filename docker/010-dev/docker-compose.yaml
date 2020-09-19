@@ -3,7 +3,7 @@ version: '3.5'
 networks:
   phd_data:
     external: false
-    name: ${MLKC_PHD_DATA_APP}
+    name: ${MLKC_PHD_DATA_APP}_dev
 
 services:
   postgis:

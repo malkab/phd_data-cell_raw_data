@@ -13,13 +13,13 @@
 # -----------------------------------------------------------------
 
 # Check mlkcontext to check. If void, no check will be performed.
-MATCH_MLKCONTEXT=
+MATCH_MLKCONTEXT=kepler
 # A set of images to upload, in the form (image0 image1). Could be multiline
 # inside the parentheses. Provide the full image names as shown in docker
 # images.
 IMAGES=(
-
-  image1
+  $MLKC_PHD_DATA_PRODUCTION_IMAGE:$MLKC_PHD_DATA_VERSION
+  $MLKC_PHD_DATA_PRODUCTION_IMAGE:latest
 )
 # The user for login. Leave blank if the default DockerHub repo is going to be
 # used.
@@ -60,7 +60,7 @@ fi
 
 if [ ! -z "${USER}" ] ; then
 
-  echo Please provide registry credentials...
+  echo Please provide registry credentials, if GitLab, this implies an API token...
 
   docker login $REGISTRY -u $USER
 

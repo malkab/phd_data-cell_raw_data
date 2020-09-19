@@ -9,13 +9,23 @@
 # Prefix variables with MLKC_.
 #
 # ---------------------------
-export MLKC_PHD_DATA_APP=phd_data
+
+# -----
+# Instance ID
+# -----
+export MLKC_PHD_DATA_INSTANCE_NAME=kepler
+
+# -----
+# SSH
+# -----
+export MLKC_PHD_DATA_SSH_USER_NAME=$MLKC_KEPLER_USER
+export MLKC_PHD_DATA_SSH_HOST=$MLKC_KEPLER_HOST
+export MLKC_PHD_DATA_PEM=
 
 # -----
 # PostGIS
 # -----
-export MLKC_PHD_DATA_PG_EXTERNAL_PORT=5532
-export MLKC_PHD_DATA_POSTGIS_PASSWORD=postgres
+export MLKC_PHD_DATA_PG_EXTERNAL_PORT=5632
 
 # PG Config for 64GB RAM, 8 CPU, SSD
 # This is for PG configuration file, not for the pool

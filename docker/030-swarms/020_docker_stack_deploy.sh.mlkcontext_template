@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# -----------------------------------------------------------------
+#
+# Updates the stack.
+#
+# -----------------------------------------------------------------
+#
+# Updates an stack from the GitLab registry.
+#
+# -----------------------------------------------------------------
+
+# The stack name
+STACKNAME={{{MLKC_PHD_DATA_APP}}}
+# Target default compose
+DOCKER_COMPOSE=docker-compose.yaml
+
+
+
+
+
+# ---
+
+# Remember that old volumes will be used
+
+echo
+
+echo --------
+echo WARNING!
+echo --------
+
+echo Remember that old volumes will continue to be used. If there were changes to the PostgreSQL one, patch it or drop it altogether before continuing.
+
+echo
+
+
+# Deploy the stack
+
+docker stack deploy -c $DOCKER_COMPOSE $STACKNAME

@@ -15,7 +15,7 @@
 # Check mlkcontext to check. If void, no check will be performed
 MATCH_MLKCONTEXT=kepler
 # The name of the image to push
-IMAGE_NAME=$MLKC_PHD_DATA_APP
+IMAGE_NAME=$MLKC_PHD_DATA_PRODUCTION_IMAGE
 # The tag
 IMAGE_TAG=$MLKC_PHD_DATA_VERSION
 # Dockerfile

@@ -1,0 +1,28 @@
+version: '3.5'
+
+networks:
+  phd_data:
+    external: false
+    name: {{{MLKC_PHD_DATA_APP}}}
+    attachable: true
+
+volumes:
+  phd_data_postgis:
+    external: false
+    name: {{{MLKC_PHD_DATA_APP}}}_postgis
+
+services:
+  postgis:
+    image: {{{MLKC_PHD_DATA_PRODUCTION_IMAGE}}}:latest
+
+    environment:
+      - PASSWORD={{{MLKC_PHD_DATA_POSTGIS_PASSWORD}}}
+
+    networks:
+      - phd_data
+
+    ports:
+      - "{{{MLKC_PHD_DATA_PG_EXTERNAL_PORT}}}:5432"
+
+    volumes:
+      - phd_data_postgis:/data
