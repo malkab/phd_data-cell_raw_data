@@ -18,7 +18,7 @@ MATCH_MLKCONTEXT=common
 # Will grep lines to this term. If void, all lines will be shown
 GREP=$1
 # Project name
-PROJECT_NAME=$MLKC_PHD_DATA_APP
+PROJECT_NAME=$MLKC_CELL_RAW_DATA_APP
 # Follow
 FOLLOW=true
 # Timestamps

@@ -21,7 +21,7 @@ TIMEOUT=0
 COMPOSE_FILE=
 # Project name, can be blank. Take into account that the folder name will be
 # used, there can be name clashes.
-PROJECT_NAME=$MLKC_PHD_DATA_APP
+PROJECT_NAME=$MLKC_CELL_RAW_DATA_APP
 # Drop volumes.
 REMOVE_VOLUMES=true
 

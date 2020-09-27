@@ -1,26 +1,29 @@
 #!/bin/bash
 
-# Version 2020-09-10
+# Version: 2020-09-10
 
 # -----------------------------------------------------------------
 #
-# Describe the purpose of the script here.
+# Stops and drop the compose.
 #
 # -----------------------------------------------------------------
 #
-# Starts a Docker Compose.
+# Downs a compose. With TIMEOUT=0 it is fulminated. Stops and removes
+# containers, networks, and volumes, if specified.
 #
 # -----------------------------------------------------------------
 
 # Check mlkcontext to check. If void, no check will be performed.
-MATCH_MLKCONTEXT=common
+MATCH_MLKCONTEXT=production_image_kepler
+# Stop timeout, in seconds.
+TIMEOUT=0
 # Compose file, blank searches for local docker-compose file.
 COMPOSE_FILE=
-# Project name, can be blank. Take into account that the folder name
-# will be used, there can be name clashes.
+# Project name, can be blank. Take into account that the folder name will be
+# used, there can be name clashes.
 PROJECT_NAME=$MLKC_CELL_RAW_DATA_APP
-# Detach.
-DETACH=false
+# Drop volumes.
+REMOVE_VOLUMES=true
 
 
 
@@ -53,14 +56,14 @@ if [ ! -z "${PROJECT_NAME}" ] ; then
 
 fi
 
-if [ "$DETACH" = true ] ; then
+if [ "$REMOVE_VOLUMES" = true ] ; then
 
-  DETACH="-d"
+  REMOVE_VOLUMES="-v"
 
 else
 
-  DETACH=
+  REMOVE_VOLUMES=
 
 fi
 
-eval docker-compose $COMPOSE_FILE $PROJECT_NAME up $DETACH
+docker-compose $COMPOSE_FILE $PROJECT_NAME down -t $TIMEOUT $REMOVE_VOLUMES

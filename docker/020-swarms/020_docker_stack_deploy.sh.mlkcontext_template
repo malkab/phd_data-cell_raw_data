@@ -1,24 +1,23 @@
 #!/bin/bash
 
-# Version 2020-08-07
+# Version 2020-09-19
 
 # -----------------------------------------------------------------
 #
-# Stops the compose.
+# Document the purpose of the script here.
 #
 # -----------------------------------------------------------------
 #
-# Stops a compose in the current folder.
+# Updates an stack from the GitLab registry.
 #
 # -----------------------------------------------------------------
 
 # Check mlkcontext to check. If void, no check will be performed
-MATCH_MLKCONTEXT=common
-# Stop timeout
-TIMEOUT=10
-# Project name, can be blank. Take into account that the folder name
-# will be used, there can be name clashes
-PROJECT_NAME=$MLKC_CELL_RAW_DATA_APP
+MATCH_MLKCONTEXT=
+# The stack name
+STACKNAME={{{MLKC_CELL_RAW_DATA_APP}}}
+# Target default compose
+DOCKER_COMPOSE=docker-compose.yaml
 
 
 
@@ -27,6 +26,7 @@ PROJECT_NAME=$MLKC_CELL_RAW_DATA_APP
 # ---
 
 # Check mlkcontext
+
 if [ ! -z "${MATCH_MLKCONTEXT}" ] ; then
 
   if [ ! "$(mlkcontext)" = "$MATCH_MLKCONTEXT" ] ; then
@@ -39,10 +39,6 @@ if [ ! -z "${MATCH_MLKCONTEXT}" ] ; then
 
 fi
 
-if [ ! -z "${PROJECT_NAME}" ] ; then
 
-  PROJECT_NAME="-p ${PROJECT_NAME}"
-
-fi
-
-docker-compose $PROJECT_NAME stop -t $TIMEOUT
+# Deploy the stack
+docker stack deploy -c $DOCKER_COMPOSE $STACKNAME

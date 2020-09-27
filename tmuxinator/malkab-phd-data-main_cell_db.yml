@@ -1,12 +1,7 @@
-name: malkab-phd-data-main_cell_db
-root: /home/git/malkab-phd-data/malkab-phd-data-main_cell_db
+name: malkab-phd-data-cell_raw_data
+root: /home/git/malkab-phd-data/malkab-phd-data-cell_raw_data
 
 windows:
-  - workpackages: >
-      clear ;
-      sleep 1 ;
-      . mlkcontext common ;
-      cd work_packages
   - psql: >
       clear ;
       sleep 5 ;

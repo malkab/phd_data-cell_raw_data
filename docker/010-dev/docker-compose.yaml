@@ -1,23 +1,22 @@
 version: '3.5'
 
 networks:
-  phd_data:
-    external: false
-    name: ${MLKC_PHD_DATA_APP}_dev
+  cell:
+    external: true
 
 services:
-  postgis:
+  cell_raw_data:
     image: malkab/postgis:gargantuan_giraffe
-    container_name: ${MLKC_PHD_DATA_APP}_postgis_dev
+    container_name: ${MLKC_CELL_RAW_DATA_APP}_postgis_dev
 
     environment:
-      - PASSWORD=${MLKC_PHD_DATA_POSTGIS_PASSWORD}
+      - PASSWORD=${MLKC_CELL_RAW_DATA_POSTGIS_PASSWORD}
 
     networks:
-      - phd_data
+      - cell
 
     ports:
-      - "${MLKC_PHD_DATA_PG_EXTERNAL_PORT}:5432"
+      - "${MLKC_CELL_RAW_DATA_PG_EXTERNAL_PORT}:5432"
 
     volumes:
       - ../../docker_persistent_volumes/postgis:/data

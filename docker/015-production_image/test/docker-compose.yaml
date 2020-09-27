@@ -1,0 +1,26 @@
+version: '3.5'
+
+networks:
+  cell:
+    external: true
+
+volumes:
+  cell_raw_data_postgis:
+    external: false
+    name: cell_raw_data_postgis
+
+services:
+  cell_raw_data:
+    image: registry.gitlab.com/malkab-phd-data/malkab-phd-data-cell_raw_data/cell_raw_data:latest
+
+    environment:
+      - PASSWORD=${MLKC_CELL_RAW_DATA_POSTGIS_PASSWORD}
+
+    networks:
+      - cell
+
+    ports:
+      - "5500:5432"
+
+    volumes:
+      - cell_raw_data_postgis:/data

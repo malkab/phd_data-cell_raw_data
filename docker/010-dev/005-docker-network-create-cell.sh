@@ -1,24 +1,26 @@
 #!/bin/bash
 
-# Version 2020-08-07
+# Version: 2020-08-22
 
 # -----------------------------------------------------------------
 #
-# Stops the compose.
+# Document here the purpose of the script.
 #
 # -----------------------------------------------------------------
 #
-# Stops a compose in the current folder.
+# Creates a Docker network.
 #
 # -----------------------------------------------------------------
 
 # Check mlkcontext to check. If void, no check will be performed
 MATCH_MLKCONTEXT=common
-# Stop timeout
-TIMEOUT=10
-# Project name, can be blank. Take into account that the folder name
-# will be used, there can be name clashes
-PROJECT_NAME=$MLKC_CELL_RAW_DATA_APP
+# Network name
+NETWORK=cell
+# Type: overlay or none
+TYPE=overlay
+# Attachable?
+ATTACHABLE=true
+
 
 
 
@@ -39,10 +41,18 @@ if [ ! -z "${MATCH_MLKCONTEXT}" ] ; then
 
 fi
 
-if [ ! -z "${PROJECT_NAME}" ] ; then
+# Type?
+if [ ! -z "${TYPE}" ] ; then
 
-  PROJECT_NAME="-p ${PROJECT_NAME}"
+  TYPE="-d ${TYPE}"
 
 fi
 
-docker-compose $PROJECT_NAME stop -t $TIMEOUT
+# Attacheable?
+if [ "$ATTACHABLE" = true ] ; then
+
+  ATTACHABLE="--attachable"
+
+fi
+
+eval docker network create $TYPE $ATTACHABLE $NETWORK

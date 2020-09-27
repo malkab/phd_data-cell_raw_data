@@ -1,24 +1,26 @@
 #!/bin/bash
 
-# Version 2020-08-07
+# Version 2020-09-10
 
 # -----------------------------------------------------------------
 #
-# Stops the compose.
+# Describe the purpose of the script here.
 #
 # -----------------------------------------------------------------
 #
-# Stops a compose in the current folder.
+# Starts a Docker Compose.
 #
 # -----------------------------------------------------------------
 
-# Check mlkcontext to check. If void, no check will be performed
-MATCH_MLKCONTEXT=common
-# Stop timeout
-TIMEOUT=10
+# Check mlkcontext to check. If void, no check will be performed.
+MATCH_MLKCONTEXT=production_image_kepler
+# Compose file, blank searches for local docker-compose file.
+COMPOSE_FILE=
 # Project name, can be blank. Take into account that the folder name
-# will be used, there can be name clashes
+# will be used, there can be name clashes.
 PROJECT_NAME=$MLKC_CELL_RAW_DATA_APP
+# Detach.
+DETACH=false
 
 
 
@@ -39,10 +41,26 @@ if [ ! -z "${MATCH_MLKCONTEXT}" ] ; then
 
 fi
 
+if [ ! -z "${COMPOSE_FILE}" ] ; then
+
+  COMPOSE_FILE="-f ${COMPOSE_FILE}"
+
+fi
+
 if [ ! -z "${PROJECT_NAME}" ] ; then
 
   PROJECT_NAME="-p ${PROJECT_NAME}"
 
 fi
 
-docker-compose $PROJECT_NAME stop -t $TIMEOUT
+if [ "$DETACH" = true ] ; then
+
+  DETACH="-d"
+
+else
+
+  DETACH=
+
+fi
+
+eval docker-compose $COMPOSE_FILE $PROJECT_NAME up $DETACH
