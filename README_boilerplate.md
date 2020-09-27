@@ -2,7 +2,6 @@
 
 This is the template folder for a data science project in GIT.
 
-e
 
 ## Big Data: Set DVC
 
