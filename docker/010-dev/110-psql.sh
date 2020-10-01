@@ -25,9 +25,9 @@ NETWORK=cell
 SCRIPT=
 COMMAND=
 # Container name
-CONTAINER_NAME=$MLKC_CELL_RAW_DATA_APP_psql
+CONTAINER_NAME=${MLKC_CELL_RAW_DATA_APP}_psql
 # Container host name
-CONTAINER_HOST_NAME=$MLKC_CELL_RAW_DATA_APP_psql
+CONTAINER_HOST_NAME=${MLKC_CELL_RAW_DATA_APP}_psql
 # Work dir
 WORKDIR=/ext_src/
 # The version of Docker PG image to use
