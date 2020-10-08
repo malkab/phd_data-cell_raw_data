@@ -4,7 +4,7 @@ root: /home/git/malkab-phd-data/malkab-phd-data-cell_raw_data
 windows:
   - psql: >
       clear ;
-      sleep 5 ;
+      sleep 10 ;
       . mlkcontext common ;
       cd docker/010-dev ;
       ./110-psql.sh
