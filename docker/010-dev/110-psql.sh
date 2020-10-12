@@ -14,11 +14,11 @@
 # -----------------------------------------------------------------
 
 # Check mlkcontext to check. If void, no check will be performed
-MATCH_MLKCONTEXT=common
+MATCH_MLKCONTEXT=
 # The network to connect to. Remember that when attaching to the network
 # of an existing container (using container:name) the HOST is
 # "localhost"
-NETWORK=cell
+NETWORK=$MLKC_CELL_RAW_DATA_NETWORK
 # These two options are mutually excluyent. Use null at both for
 # an interactive psql session. In case of passing a script, files
 # must exist at a mounted volume at the VOLUMES section.
@@ -29,15 +29,15 @@ CONTAINER_NAME=${MLKC_CELL_RAW_DATA_APP}_psql
 # Container host name
 CONTAINER_HOST_NAME=${MLKC_CELL_RAW_DATA_APP}_psql
 # Work dir
-WORKDIR=/ext_src/
+WORKDIR=$(pwd)
 # The version of Docker PG image to use
 POSTGIS_DOCKER_TAG=gargantuan_giraffe
 # The host
-HOST=cell_raw_data
+HOST=$MLKC_CELL_RAW_DATA_HOST
 # The port
-PORT=5432
+PORT=$MLKC_CELL_RAW_DATA_PG_EXTERNAL_PORT
 # The user
-USER=postgres
+USER=$MLKC_CELL_RAW_DATA_POSTGIS_USER
 # The pass
 PASS=$MLKC_CELL_RAW_DATA_POSTGIS_PASSWORD
 # The DB
@@ -45,7 +45,7 @@ DB=postgres
 # Declare volumes, a line per volume, complete in source:destination
 # form. No strings needed, $(pwd)/../data/:/ext_src/ works perfectly
 VOLUMES=(
-  $(pwd):/ext_src/
+  $(pwd)/../../../:$(pwd)/../../../
 )
 # Output to files. This will run the script silently and
 # output results and errors to out.txt and error.txt. Use only
@@ -57,6 +57,10 @@ OUTPUT_FILES=false
 
 
 # ---
+
+echo -------------
+echo WORKING AT $(mlkcontext)
+echo -------------
 
 # Check mlkcontext
 if [ ! -z "${MATCH_MLKCONTEXT}" ] ; then

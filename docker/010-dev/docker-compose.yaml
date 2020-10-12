@@ -2,7 +2,8 @@ version: '3.5'
 
 networks:
   cell:
-    external: true
+    external: false
+    name: ${MLKC_CELL_RAW_DATA_NETWORK}
 
 services:
   cell_raw_data:

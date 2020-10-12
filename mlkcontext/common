@@ -22,7 +22,10 @@ export MLKC_CELL_RAW_DATA_PRODUCTION_IMAGE_TAG=v$(date +"%Y%m%d-%H%M%S")
 # -----
 # PostGIS
 # -----
-export MLKC_CELL_RAW_DATA_PG_EXTERNAL_PORT=5532
+export MLKC_CELL_RAW_DATA_NETWORK=cell_raw_data
+export MLKC_CELL_RAW_DATA_HOST=cell_raw_data
+export MLKC_CELL_RAW_DATA_POSTGIS_USER=postgres
+export MLKC_CELL_RAW_DATA_PG_EXTERNAL_PORT=5432
 export MLKC_CELL_RAW_DATA_POSTGIS_PASSWORD=postgres
 
 # PG Config for 64GB RAM, 8 CPU, SSD
