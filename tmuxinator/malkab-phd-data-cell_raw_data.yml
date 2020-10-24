@@ -2,7 +2,7 @@ name: malkab-phd-data-cell_raw_data
 root: /home/git/malkab-phd-data/malkab-phd-data-cell_raw_data
 
 windows:
-  - psql: >
+  - cell_raw_data/psql: >
       clear ;
       sleep 10 ;
       . mlkcontext common ;

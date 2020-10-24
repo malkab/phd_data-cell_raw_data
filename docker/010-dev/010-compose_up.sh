@@ -20,7 +20,7 @@ COMPOSE_FILE=
 # will be used, there can be name clashes.
 PROJECT_NAME=$MLKC_CELL_RAW_DATA_APP
 # Detach.
-DETACH=false
+DETACH=true
 
 
 
