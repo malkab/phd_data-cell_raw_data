@@ -8,7 +8,7 @@ networks:
 services:
   cell_raw_data:
     image: malkab/postgis:gargantuan_giraffe
-    container_name: ${MLKC_CELL_RAW_DATA_APP}_postgis_dev
+    container_name: cell-${MLKC_CELL_RAW_DATA_APP}_postgis_dev
 
     environment:
       - PASSWORD=${MLKC_CELL_RAW_DATA_POSTGIS_PASSWORD}

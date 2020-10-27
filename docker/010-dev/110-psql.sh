@@ -25,9 +25,9 @@ NETWORK=$MLKC_CELL_RAW_DATA_NETWORK
 SCRIPT=
 COMMAND=
 # Container name
-CONTAINER_NAME=${MLKC_CELL_RAW_DATA_APP}_psql
+CONTAINER_NAME=cell-${MLKC_CELL_RAW_DATA_APP}_psql
 # Container host name
-CONTAINER_HOST_NAME=${MLKC_CELL_RAW_DATA_APP}_psql
+CONTAINER_HOST_NAME=cell-${MLKC_CELL_RAW_DATA_APP}_psql
 # Work dir
 WORKDIR=$(pwd)
 # The version of Docker PG image to use
