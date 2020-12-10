@@ -33,13 +33,13 @@ WORKDIR=/ext_src/
 # The version of Docker PG image to use
 POSTGIS_DOCKER_TAG=gargantuan_giraffe
 # The host
-HOST=cell_raw_data
+HOST={{{MLKC_CELL_RAW_DATA_HOST}}}
 # The port
-PORT=5432
+PORT={{{MLKC_CELL_RAW_DATA_PG_EXTERNAL_PORT}}}
 # The user
-USER=postgres
+USER={{{MLKC_CELL_RAW_DATA_POSTGIS_USER}}}
 # The pass
-PASS={{{MLKC_CELL_RAW_DATA_POSTGIS_PASSWORD}}}
+PASS={{{MLKC_CELL_RAW_DATA_PASSWORD}}}
 # The DB
 DB=postgres
 # Declare volumes, a line per volume, complete in source:destination

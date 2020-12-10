@@ -33,13 +33,13 @@ WORKDIR=$(pwd)
 # The version of Docker PG image to use
 POSTGIS_DOCKER_TAG=gargantuan_giraffe
 # The host
-HOST=$MLKC_CELL_RAW_DATA_HOST
+HOST=$MLKC_CELL_RAW_DATA_PG_HOST
 # The port
-PORT=$MLKC_CELL_RAW_DATA_PG_EXTERNAL_PORT
+PORT=$MLKC_CELL_RAW_DATA_PG_PORT
 # The user
-USER=$MLKC_CELL_RAW_DATA_POSTGIS_USER
+USER=$MLKC_CELL_RAW_DATA_PG_USER
 # The pass
-PASS=$MLKC_CELL_RAW_DATA_POSTGIS_PASSWORD
+PASS=$MLKC_CELL_RAW_DATA_PG_PASS
 # The DB
 DB=postgres
 # Declare volumes, a line per volume, complete in source:destination
