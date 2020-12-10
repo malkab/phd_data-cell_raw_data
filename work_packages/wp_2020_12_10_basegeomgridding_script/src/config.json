@@ -1,0 +1,49 @@
+{
+
+  "cellPg": {
+    "host": "xxx",
+    "pass": "xxx",
+    "port": "5632",
+    "user": "postgres"
+  },
+
+  "sourcePg": {
+    "db": "cell_raw_data",
+    "host": "xxx",
+    "pass": "xxx",
+    "port": "5632",
+    "user": "postgres"
+  },
+
+  "grid": {
+    "description": "A grid based on the official EU one",
+    "gridId": "eu-grid",
+    "name": "eu-grid",
+    "originEpsg": "3035",
+    "originX": 2700000,
+    "originY": 1500000,
+    "zoomLevels": [
+      {"name": "100 km", "size": 100000},
+      {"name": "50 km", "size": 50000},
+      {"name": "10 km", "size": 10000},
+      {"name": "5 km", "size": 5000},
+      {"name": "1 km", "size": 1000},
+      {"name": "500 m", "size": 500},
+      {"name": "250 m", "size": 250},
+      {"name": "125 m", "size": 125},
+      {"name": "25 m", "size": 25},
+      {"name": "5 m", "size": 5}
+    ]
+  },
+
+  "gridderJob": {
+    "gridderJobId": "gridderJobAreaMetropolitanaSevilla",
+    "gridderTaskId": "municipioDiscretePolyTopArea",
+    "maxZoomLevel": 0,
+    "minZoomLevel": 2,
+    "sqlAreaRetrieval": "select st_setsrid(st_union(geom), 3035) as geom from context.municipio where cod_mun in ('41091', '41089', '41021', '41086', '41004', '41038', '41044', '41059', '41093', '41029', '41028', '41096', '41070', '41017', '41047', '41034', '41010', '41040', '41085', '41007', '41081')"
+  },
+
+  "zoom": 4
+
+}
