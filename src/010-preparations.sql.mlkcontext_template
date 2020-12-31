@@ -14,11 +14,11 @@
 begin;
 
 create user :dbowneruser with
-password '38fn3k39erj34n8'
+password '{{{MLKC_CELL_RAW_DATA_PG_PASS_CELL_MASTER}}}'
 NOSUPERUSER LOGIN NOCREATEDB NOCREATEROLE NOREPLICATION;
 
 create user :dbreadonlyuser with
-password 'manCastle002'
+password '{{{MLKC_CELL_RAW_DATA_PG_PASS_CELL_READONLY}}}'
 NOSUPERUSER LOGIN NOCREATEDB NOCREATEROLE NOREPLICATION;
 
 commit;

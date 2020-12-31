@@ -6,7 +6,7 @@
 #
 # ---------------------------
 #
-# Prefix variables with MLKC_.
+# Prefix variables with MLKC_CELL_RAW_DATA_.
 #
 # ---------------------------
 export MLKC_CELL_RAW_DATA_VERSION=1.0.0
@@ -25,10 +25,15 @@ export MLKC_CELL_RAW_DATA_PRODUCTION_IMAGE_TAG=v$(date +"%Y%m%d-%H%M%S")
 export MLKC_CELL_RAW_DATA_NETWORK=cell_raw_data
 export MLKC_CELL_RAW_DATA_PG_HOST=cell_raw_data
 export MLKC_CELL_RAW_DATA_PG_USER=postgres
-export MLKC_CELL_RAW_DATA_PG_PORT=
+export MLKC_CELL_RAW_DATA_PG_PORT=5432
 export MLKC_CELL_RAW_DATA_PG_PASS=postgres
 export MLKC_CELL_RAW_DATA_PG_DB=cell_raw_data
 export MLKC_CELL_RAW_DATA_PG_DOCKER_EXTERNAL_PORT=5632
+
+export MLKC_CELL_RAW_DATA_PG_USER_CELL_MASTER=$MLKC_SYSTEM_37NORTH_PG_USER_CELL_MASTER
+export MLKC_CELL_RAW_DATA_PG_PASS_CELL_MASTER=postgres
+export MLKC_CELL_RAW_DATA_PG_USER_CELL_READONLY=$MLKC_SYSTEM_37NORTH_PG_USER_CELL_READONLY
+export MLKC_CELL_RAW_DATA_PG_PASS_CELL_READONLY=postgres
 
 # PG Config for 64GB RAM, 8 CPU, SSD
 # This is for PG configuration file, not for the pool

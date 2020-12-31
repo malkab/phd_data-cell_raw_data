@@ -29,19 +29,19 @@ CONTAINER_NAME=
 # Container host name
 CONTAINER_HOST_NAME=
 # Work dir
-WORKDIR=$(pwd)
+WORKDIR=$(pwd)/../../
 # The version of Docker PG image to use
 POSTGIS_DOCKER_TAG=gargantuan_giraffe
-# The host
+# The hosto
 HOST=$MLKC_CELL_RAW_DATA_PG_HOST
 # The port
 PORT=$MLKC_CELL_RAW_DATA_PG_PORT
 # The user
-USER=$MLKC_CELL_RAW_DATA_PG_USER
+USER=$MLKC_CELL_RAW_DATA_PG_USER_CELL_MASTER
 # The pass
-PASS=$MLKC_CELL_RAW_DATA_PG_PASS
+PASS=$MLKC_CELL_RAW_DATA_PG_PASS_CELL_MASTER
 # The DB
-DB=postgres
+DB=cell_raw_data
 # Declare volumes, a line per volume, complete in source:destination
 # form. No strings needed, $(pwd)/../data/:/ext_src/ works perfectly
 VOLUMES=(
