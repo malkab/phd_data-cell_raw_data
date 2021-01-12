@@ -4,7 +4,7 @@
 
 # -----------------------------------------------------------------
 #
-# psql session to DB.
+# psql session to DB, local.
 #
 # -----------------------------------------------------------------
 #
@@ -25,23 +25,23 @@ NETWORK=cell
 SCRIPT=
 COMMAND=
 # Container name
-CONTAINER_NAME={{{MLKC_CELL_RAW_DATA_APP}}}_psql
+CONTAINER_NAME=
 # Container host name
-CONTAINER_HOST_NAME={{{MLKC_CELL_RAW_DATA_APP}}}_psql
+CONTAINER_HOST_NAME=cell_raw_data_psql
 # Work dir
 WORKDIR=/ext_src/
 # The version of Docker PG image to use
 POSTGIS_DOCKER_TAG=gargantuan_giraffe
 # The host
-HOST={{{MLKC_CELL_RAW_DATA_HOST}}}
+HOST={{{MLKC_CELL_RAW_DATA_PG_HOST}}}
 # The port
-PORT={{{MLKC_CELL_RAW_DATA_PG_EXTERNAL_PORT}}}
+PORT={{{MLKC_CELL_RAW_DATA_PG_PORT}}}
 # The user
-USER={{{MLKC_CELL_RAW_DATA_POSTGIS_USER}}}
+USER={{{MLKC_CELL_RAW_DATA_PG_USER_CELL_MASTER}}}
 # The pass
-PASS={{{MLKC_CELL_RAW_DATA_PASSWORD}}}
+PASS={{{MLKC_CELL_RAW_DATA_PG_PASS_CELL_MASTER}}}
 # The DB
-DB=postgres
+DB=cell
 # Declare volumes, a line per volume, complete in source:destination
 # form. No strings needed, $(pwd)/../data/:/ext_src/ works perfectly
 VOLUMES=(

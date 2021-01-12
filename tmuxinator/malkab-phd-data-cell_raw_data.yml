@@ -4,18 +4,11 @@ root: /home/git/malkab-phd-data/malkab-phd-data-cell_raw_data
 windows:
   - psql: >
       clear ;
-      sleep 2 ;
-      . mlkcontext common ;
-      cd docker/010-dev ;
-      ./110-psql.sh
-  - compose: >
+      cd docker/010-dev
+
+  - local-compose: >
       clear ;
       sleep 0.2 ;
       . mlkcontext common ;
       cd docker/010-dev ;
       ./010-compose_up.sh
-  - docker: >
-      clear ;
-      sleep 4 ;
-      . mlkcontext common ;
-      cd docker
