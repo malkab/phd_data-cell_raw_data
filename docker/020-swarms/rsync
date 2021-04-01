@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Version: 2020-08-11
+# Version: 2021-04-01
 
 # -----------------------------------------------------------------
 #
@@ -8,22 +8,20 @@
 #
 # -----------------------------------------------------------------
 #
-# Push assets to a remote host. Be VERY CAREFULL with the --delete
-# option!!! Terrible data loss has happen in the past.
+# Push assets to a remote host. Be VERY CAREFULL with the --delete option!!!
+# Terrible data loss has happen in the past.
 #
 # -----------------------------------------------------------------
-
 # Check mlkcontext to check. If void, no check will be performed
 MATCH_MLKCONTEXT=
-# Source folder, can be the folder itself.
+# Source and destination folder, can be as simple as . or as complex as an
+# user@host:/path.
 SOURCE_FOLDER=.
-# Remote folder, this folder will be created at the remote if possible
-# Use absolute paths exclusively. This must include the user@host.
-REMOTE_FOLDER=$MLKC_CELL_RAW_DATA_REMOTE_FOLDER
+DESTIN_FOLDER=$MLKC_CELL_RAW_DATA_REMOTE_FOLDER
 # Excludes, for example ("a*" "e*" "r*")
 EXCLUDES=(
   ".DS_Store" "rsync*" ".gitignore" ".git"
-  "*.mlkcontext_template" "ssh"
+  "*.mlkctxt_template" "ssh"
 )
 # SSH port
 SSH_PORT=$MLKC_CELL_RAW_DATA_SSH_PORT
@@ -36,9 +34,27 @@ AWS_PEM=$MLKC_CELL_RAW_DATA_PEM
 
 # ---
 
-echo -------------
-echo WORKING AT $(mlkcontext)
-echo -------------
+# Check mlkctxt is present at the system
+if command -v mlkctxt &> /dev/null
+then
+
+  echo -------------
+  echo ENVIRONMENT: $(mlkctxt)
+  echo -------------
+
+  # Check mlkctxt
+  if [ ! -z "${MATCH_MLKCTXT}" ] ; then
+
+    if [ ! "$(mlkctxt)" = "$MATCH_MLKCTXT" ] ; then
+
+      echo Please initialise context $MATCH_MLKCTXT
+      exit 1
+
+    fi
+
+  fi
+
+fi
 
 # By default, run dry and without delete
 DRY_RUN=true
@@ -59,10 +75,10 @@ EOF
 return 0
 }
 
-# Check mlkcontext
-if [ ! -z "${MATCH_MLKCONTEXT}" ] ; then
-  if [ ! "$(mlkcontext)" = "$MATCH_MLKCONTEXT" ] ; then
-    echo Please initialise context $MATCH_MLKCONTEXT
+# Check mlkctxt
+if [ ! -z "${MATCH_MLKCTXT}" ] ; then
+  if [ ! "$(mlkctxt)" = "$MATCH_MLKCTXT" ] ; then
+    echo Please initialise context $MATCH_MLKCTXT
     exit 1
   fi
 fi
@@ -115,7 +131,7 @@ for EXCLUDE in "${EXCLUDES[@]}" ; do
 done
 
 # Command
-RSYNC="${RSYNC} ${SOURCE_FOLDER} ${REMOTE_FOLDER}"
+RSYNC="${RSYNC} ${SOURCE_FOLDER} ${DESTIN_FOLDER}"
 eval $RSYNC
 
 # Inform the user
