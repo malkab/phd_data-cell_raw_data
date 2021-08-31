@@ -2,15 +2,13 @@ name: malkab-phd-data-cell_raw_data
 root: /home/git/malkab-phd-data/malkab-phd-data-cell_raw_data
 
 windows:
-  - cell_raw_data/psql: >
-      clear ;
-      sleep 3 ;
-      . mlkcontext common ;
+  - psql: >
       cd docker/010-dev ;
-      ./110-psql.sh
-  - compose: >
-      clear ;
       sleep 0.2 ;
-      . mlkcontext common ;
+      clear
+
+  - local-compose: >
       cd docker/010-dev ;
-      ./010-compose_up.sh
+      sleep 0.2 ;
+      clear ;
+      echo Run the local Compose here if needed

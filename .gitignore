@@ -2,17 +2,25 @@
 docker_persistent_volumes/*
 data/000_in/*
 data/900_out/*
-# Added by mlkcontext
+# Added by mlkctxt - v1.1.5
 # -------------------
+000-DEPRECATE/015-production_image/assets/initdb.sh
+000-DEPRECATE/015-production_image/assets/pg_hba.conf
+000-DEPRECATE/015-production_image/assets/postgresql.conf
 docker/010-dev/config/postgis/postgresql.conf
+docker/020-swarms/000-DEPRECATE/110-volume_mount.sh
+docker/020-swarms/000-DEPRECATE/700-docker_cell_db_dump.sh
+docker/020-swarms/000-DEPRECATE/710-docker_cell_raw_data_db_dump.sh
+docker/020-swarms/000-DEPRECATE/720-docker_datos_proyecto_nacional_db_dump.sh
+docker/020-swarms/100-psql-postgres.sh
+docker/020-swarms/102-psql-cell_master.sh
+docker/020-swarms/105-psql-cell_readonly.sh
+docker/020-swarms/CAUTION-DATA_LOSS/920-docker-restore_cell_db_dump.sh
+docker/020-swarms/CAUTION-DATA_LOSS/923-docker-restore_cell_raw_data_db_dump.sh
+docker/020-swarms/CAUTION-DATA_LOSS/925-docker-restore_proyecto_nacional_db_dump.sh
+docker/020-swarms/configs/pg_hba.conf
+docker/020-swarms/configs/postgresql.conf
 docker/020-swarms/docker-compose.yaml
 docker/020-swarms/INSTANCE
-docker/020-swarms/020_docker_stack_deploy.sh
-docker/020-swarms/910_docker_volume_rm.sh
-docker/020-swarms/100-psql.sh
-docker/020-swarms/900_docker_stack_remove.sh
-docker/020-swarms/015-docker-image_pull.sh
-docker/015-production_image/assets/initdb.sh
-docker/015-production_image/assets/postgresql.conf
-docker/015-production_image/assets/pg_hba.conf
-# -------------------
+src/010-preparations.sql
+src/020-db_permissions.sql

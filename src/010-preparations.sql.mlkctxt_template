@@ -1,0 +1,24 @@
+/**
+
+  Preparations for context schema processing.
+
+*/
+
+-- Set the name of the database and the owner and read-only user
+\set dbname cell_raw_data
+\set dbowneruser cell_master
+\set dbreadonlyuser cell_readonly
+
+\c postgres
+
+begin;
+
+create user :dbowneruser with
+password '{{{MLKC_CELL_RAW_DATA_PG_CELL_MASTER_PASS}}}'
+NOSUPERUSER LOGIN NOCREATEDB NOCREATEROLE NOREPLICATION;
+
+create user :dbreadonlyuser with
+password '{{{MLKC_CELL_RAW_DATA_PG_CELL_READONLY_PASS}}}'
+NOSUPERUSER LOGIN NOCREATEDB NOCREATEROLE NOREPLICATION;
+
+commit;
