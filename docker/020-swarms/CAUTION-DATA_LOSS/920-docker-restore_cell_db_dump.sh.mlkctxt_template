@@ -1,0 +1,145 @@
+#!/bin/bash
+
+# Version: 2021-08-30
+
+# -----------------------------------------------------------------
+#
+# Document purpose of the script here.
+#
+# -----------------------------------------------------------------
+#
+# Restores a database in a PostgreSQL container.
+#
+# -----------------------------------------------------------------
+# Check mlkctxt to check. If void, no check will be performed. If NOTNULL, any
+# activated context will do, but will fail if no context was activated.
+MATCH_MLKCTXT=
+# The version of PG to use. Mandatory.
+PG_DOCKER_TAG=holistic_hornet
+# Dump name to restore, including any folder, relative to this script's folder.
+# Mandatory.
+DUMP_NAME=../db_backups/cell_db
+# The network to connect to. Remember that when attaching to the network of an
+# existing container (using container:name) the HOST is "localhost". Also the
+# host network can be connected using just "host".
+NETWORK=cell_raw_data_{{{MLKC_CELL_RAW_DATA_DOCKER_IMAGE_TAG}}}
+# Container identifier root. This is used for both the container name (adding an
+# UID to avoid clashing) and the container host name (without UID). Incompatible
+# with NETWORK container:name option. If blank, a Docker engine default name
+# will be assigned to the container.
+ID_ROOT=cell_db_dump_restore
+# Unique? If true, no container with the same name can be created. Defaults to
+# true.
+UNIQUE=
+# Admin DB, defaults to postgres.
+ADMIN_DB=postgres
+# The host, defaults to localhost.
+HOST={{{MLKC_CELL_RAW_DATA_PG_HOST}}}
+# The port, defaults to 5432.
+PORT=5432
+# The user, defaults to postgres.
+USER={{{MLKC_CELL_RAW_DATA_PG_USER}}}
+# The pass, defaults to postgres.
+PASS={{{MLKC_CELL_RAW_DATA_PG_PASS}}}
+# Verbose, defaults to true.
+VERBOSE=
+# Dump format (p plain text, c custom, d directory, t tar), defaults to c.
+FORMAT=
+# Create database, defaults to true.
+CREATE=
+
+
+
+
+
+# ---
+
+# Check mlkctxt is present at the system
+if command -v mlkctxt &> /dev/null ; then
+
+  if ! mlkctxt -c $MATCH_MLKCTXT ; then exit 1 ; fi
+
+fi
+
+# Manage identifier
+if [ ! -z "${ID_ROOT}" ] ; then
+
+  N="${ID_ROOT}"
+  CONTAINER_HOST_NAME_F="--hostname ${N}"
+
+  if [ "${UNIQUE}" = false ] ; then
+
+    CONTAINER_NAME_F="--name ${N}_$(uuidgen)"
+
+  else
+
+    CONTAINER_NAME_F="--name ${N}"
+
+  fi
+
+fi
+
+# Network
+if [ ! -z "${NETWORK}" ]; then NETWORK="--network=${NETWORK}" ; fi
+
+# Docker tag, mandatory
+if [ -z "${PG_DOCKER_TAG}" ] ; then
+
+  echo PG_DOCKER_TAG is mandatory, exiting...
+  exit 1
+
+fi
+
+# Dump name, mandatory
+if [ -z "${DUMP_NAME}" ] ; then
+
+  echo DUMP_NAME is mandatory, exiting...
+  exit 1
+
+fi
+
+# Host
+HOST_F=localhost
+if [ ! -z "${HOST}" ] ; then HOST_F=$HOST ; fi
+
+# Port
+PORT_F=5432
+if [ ! -z "${PORT}" ] ; then PORT_F=$PORT ; fi
+
+# User
+USER_F=postgres
+if [ ! -z "${USER}" ] ; then USER_F=$USER ; fi
+
+# Password
+PASS_F=postgres
+if [ ! -z "${PASS}" ] ; then PASS_F=$PASS ; fi
+
+# Admin DB
+ADMIN_DB_F=postgres
+if [ ! -z "${ADMIN_DB}" ] ; then ADMIN_DB_F=$ADMIN_DB ; fi
+
+# Verbosiness
+if [ "$VERBOSE" = false ]; then VERBOSE=""; else VERBOSE="-v" ; fi
+
+# Create database
+if [ "$CREATE" = false ]; then CREATE=""; else CREATE="-C" ; fi
+
+# Format
+FORMAT_F=c
+if [ ! -z "${FORMAT}" ] ; then FORMAT_F=$FORMAT ; fi
+
+# Dump command processing, mandatory options
+RESTORE_COMMAND="PGPASSWORD=${PASS_F} pg_restore \
+  ${CREATE} -d ${ADMIN_DB_F} -F ${FORMAT_F} ${VERBOSE} \
+  -h ${HOST_F} -p ${PORT_F} -U ${USER-F} dump"
+
+# Final command run
+eval    docker run -ti --rm \
+          $NETWORK \
+          $CONTAINER_NAME_F \
+          $CONTAINER_HOST_NAME_F \
+          -v $(pwd)/$DUMP_NAME:/ext_src/dump \
+          --entrypoint /bin/bash \
+          --workdir /ext_src/ \
+          malkab/postgis:$PG_DOCKER_TAG \
+          -c \"${RESTORE_COMMAND}\"

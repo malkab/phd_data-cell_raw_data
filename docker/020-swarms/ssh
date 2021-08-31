@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Version: 2020-08-11
+# Version: 2021-08-31
 
 # -----------------------------------------------------------------
 #
@@ -11,17 +11,17 @@
 # SSH to a host.
 #
 # -----------------------------------------------------------------
-
-# Check mlkcontext to check. If void, no check will be performed.
-MATCH_MLKCONTEXT=
-# Remote SSH username.
-USER_NAME=$MLKC_CELL_RAW_DATA_SSH_USER_NAME
-# Host.
+# Check mlkctxt to check. If void, no check will be performed. Use NOTNULL to
+# enforce any context.
+MATCH_MLKCTXT=NOTNULL
+# Remote SSH username. Mandatory.
+USER=$MLKC_CELL_RAW_DATA_SSH_USER
+# Host. Mandatory.
 HOST=$MLKC_CELL_RAW_DATA_SSH_HOST
-# SSH port.
-SSH_PORT=$MLKC_CELL_RAW_DATA_SSH_PORT
-# Amazon AWS PEM key (it´s a path to a file).
-AWS_PEM=$MLKC_CELL_RAW_DATA_PEM
+# SSH port. Defaults to 22.
+PORT=
+# Amazon AWS PEM key (it´s a path to a file, or blank if not applicable).
+AWS_PEM=
 
 
 
@@ -29,26 +29,41 @@ AWS_PEM=$MLKC_CELL_RAW_DATA_PEM
 
 # ---
 
-# Check mlkcontext
-if [ ! -z "${MATCH_MLKCONTEXT}" ] ; then
+# Check mlkctxt
+if command -v mlkctxt &> /dev/null ; then
 
-  if [ ! "$(mlkcontext)" = "$MATCH_MLKCONTEXT" ] ; then
-
-    echo Please initialise context $MATCH_MLKCONTEXT
-    exit 1
-
-  fi
+  if ! mlkctxt -c $MATCH_MLKCTXT ; then exit 1 ; fi
 
 fi
+
+# User
+if [ -z $USER ] ; then
+
+  echo USER is mandatory, exiting...
+  exit 1
+
+fi
+
+# User
+if [ -z $HOST ] ; then
+
+  echo HOST is mandatory, exiting...
+  exit 1
+
+fi
+
+# Port
+PORT_F=22
+if [ ! -z "${PORT}" ] ; then PORT_F=$PORT ; fi
 
 # Amazon PEM
 if [ ! -z $AWS_PEM ] ; then
 
-    RSH_OPTIONS="-i ${AWS_PEM} -p ${SSH_PORT}"
+    RSH_OPTIONS="-i ${AWS_PEM} -p ${PORT_F}"
 
 else
 
-    RSH_OPTIONS="-p ${SSH_PORT}"
+    RSH_OPTIONS="-p ${PORT_F}"
 
 fi
 
@@ -56,7 +71,7 @@ fi
 SSH="ssh ${RSH_OPTIONS} "
 
 # Command
-RSYNC="${SSH} ${USER_NAME}@${HOST}"
+COMMAND="${SSH} ${USER}@${HOST}"
 
-# eval $RSYNC
-eval $RSYNC
+# eval $COMMAND
+eval $COMMAND

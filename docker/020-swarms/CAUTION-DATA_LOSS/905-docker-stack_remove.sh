@@ -14,7 +14,7 @@
 # Check mlkctxt to check. If void, no check will be performed.
 MATCH_MLKCTXT=
 # The stack name.
-STACKNAME={{{MLKC_CELL_RAW_DATA_APP}}}
+STACKNAME=cell_raw_data
 
 
 

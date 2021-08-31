@@ -1,0 +1,7 @@
+name: cell_raw_data
+root: /home/apps/cell_raw_data
+
+windows:
+  - psql: >
+      sleep 0.2 ;
+      clear

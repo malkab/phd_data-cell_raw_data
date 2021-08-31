@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Version: 2021-04-01
+# Version: 2021-06-12
 
 # -----------------------------------------------------------------
 #
@@ -12,21 +12,27 @@
 # Terrible data loss has happen in the past.
 #
 # -----------------------------------------------------------------
-# Check mlkcontext to check. If void, no check will be performed
-MATCH_MLKCONTEXT=
+# Check mlkctxt to check. If void, no check will be performed. Use NOTNULL to
+# enforce any context.
+MATCH_MLKCTXT=NOTNULL
 # Source and destination folder, can be as simple as . or as complex as an
-# user@host:/path.
+# user@host:/path. Mandatory both.
 SOURCE_FOLDER=.
 DESTIN_FOLDER=$MLKC_CELL_RAW_DATA_REMOTE_FOLDER
-# Excludes, for example ("a*" "e*" "r*")
+# Excludes, for example ("a*" "e*" "r*"). Defaults to some commonly excluded
+# files: .DS_Store, rsync*, .gitignore, .git, *.mlkc_template.
 EXCLUDES=(
   ".DS_Store" "rsync*" ".gitignore" ".git"
-  "*.mlkctxt_template" "ssh"
+  "*.mlkctxt_template" "ssh" "000-DEPRECATE"
 )
-# SSH port
-SSH_PORT=$MLKC_CELL_RAW_DATA_SSH_PORT
-# Amazon AWS PEM key (it´s a path to a file, or blank if none)
-AWS_PEM=$MLKC_CELL_RAW_DATA_PEM
+# SSH port. Defaults to 22.
+PORT=
+# Amazon AWS PEM key (it´s a path to a file, or blank if none).
+AWS_PEM=
+
+# Copy some scripts
+mkdir -p sql
+cp ../../src/010-preparations.sql ./sql
 
 
 
@@ -34,26 +40,22 @@ AWS_PEM=$MLKC_CELL_RAW_DATA_PEM
 
 # ---
 
-# Check mlkctxt is present at the system
-if command -v mlkctxt &> /dev/null
-then
+# Check mlkctxt
+if command -v mlkctxt &> /dev/null ; then
 
-  echo -------------
-  echo ENVIRONMENT: $(mlkctxt)
-  echo -------------
+  if ! mlkctxt -c $MATCH_MLKCTXT ; then exit 1 ; fi
 
-  # Check mlkctxt
-  if [ ! -z "${MATCH_MLKCTXT}" ] ; then
+fi
 
-    if [ ! "$(mlkctxt)" = "$MATCH_MLKCTXT" ] ; then
+# Check folders
+if [ -z $SOURCE_FOLDER ] ; then
+  echo SOURCE_FOLDER is mandatory, exiting...
+  exit 1
+fi
 
-      echo Please initialise context $MATCH_MLKCTXT
-      exit 1
-
-    fi
-
-  fi
-
+if [ -z $DESTIN_FOLDER ] ; then
+  echo DESTIN_FOLDER is mandatory, exiting...
+  exit 1
 fi
 
 # By default, run dry and without delete
@@ -75,14 +77,6 @@ EOF
 return 0
 }
 
-# Check mlkctxt
-if [ ! -z "${MATCH_MLKCTXT}" ] ; then
-  if [ ! "$(mlkctxt)" = "$MATCH_MLKCTXT" ] ; then
-    echo Please initialise context $MATCH_MLKCTXT
-    exit 1
-  fi
-fi
-
 # Check options
 while getopts :rdh opt
 do
@@ -101,7 +95,13 @@ do
 done
 
 # Initial options for SSH and RSYNC
-SSH_OPTIONS="-p ${SSH_PORT}"
+PORT_F=22
+if [ ! -z "${PORT}" ] ; then PORT_F=$PORT ; fi
+SSH_OPTIONS="-p ${PORT_F}"
+
+# Excludes
+EXCLUDES_F=(".DS_Store" "rsync*" ".gitignore" ".git" "*.mlkctxt_template")
+if [ ! -z "${EXCLUDES}" ] ; then EXCLUDES_F=( "${EXCLUDES[@]}" ) ; fi
 
 # Amazon PEM
 if [ ! -z $AWS_PEM ] ; then
@@ -126,7 +126,7 @@ fi
 RSYNC="rsync -avzhr --progress ${DELETE} ${DRY_RUN_F} --rsh=\"ssh ${SSH_OPTIONS}\" "
 
 # Process of excludes
-for EXCLUDE in "${EXCLUDES[@]}" ; do
+for EXCLUDE in "${EXCLUDES_F[@]}" ; do
   RSYNC="${RSYNC} --exclude \"${EXCLUDE}\""
 done
 

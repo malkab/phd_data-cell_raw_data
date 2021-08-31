@@ -1,26 +1,46 @@
 version: '3.5'
 
 networks:
-  cell:
-    external: true
+  cell_raw_data:
+    name: cell_raw_data_{{{MLKC_CELL_RAW_DATA_DOCKER_IMAGE_TAG}}}
+    external: false
+    attachable: true
+
+configs:
+  pg_hba_conf:
+    file: ./configs/pg_hba.conf
+  postgresql_conf:
+    file: ./configs/postgresql.conf
 
 volumes:
   cell_raw_data_postgis:
     external: false
-    name: {{{MLKC_CELL_RAW_DATA_APP}}}_postgis
+    name: cell_raw_data_postgis_{{{MLKC_CELL_RAW_DATA_DOCKER_IMAGE_TAG}}}
 
 services:
-  cell_raw_data:
-    image: {{{MLKC_CELL_RAW_DATA_PRODUCTION_IMAGE_NAME}}}:latest
+  cell_raw_data_postgis:
+    image: malkab/postgis:{{{MLKC_CELL_RAW_DATA_DOCKER_IMAGE_TAG}}}
 
     environment:
       - PASSWORD={{{MLKC_CELL_RAW_DATA_PG_PASS}}}
 
     networks:
-      - cell
+      - cell_raw_data
 
     ports:
-      - "{{{MLKC_CELL_RAW_DATA_PG_DOCKER_EXTERNAL_PORT}}}:5432"
+      - "{{{MLKC_CELL_RAW_DATA_PG_PORT}}}:5432"
 
     volumes:
       - cell_raw_data_postgis:/data
+
+    configs:
+      - source: pg_hba_conf
+        target: /default_confs/pg_hba.conf
+        uid: '1000'
+        gid: '1000'
+        mode: 0440
+      - source: postgresql_conf
+        target: /default_confs/postgresql.conf
+        uid: '1000'
+        gid: '1000'
+        mode: 0440

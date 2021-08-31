@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Version 2020-08-07
+# Version: 2021-08-30
 
 # -----------------------------------------------------------------
 #
@@ -8,16 +8,15 @@
 #
 # -----------------------------------------------------------------
 #
-# Remove Docker volumes.
+# Remove Docker volumes, with confirmation.
 #
 # -----------------------------------------------------------------
-
-# Check mlkcontext to check. If void, no check will be performed
-MATCH_MLKCONTEXT=
-# Volumes to be deleted here
-VOLUMES=(
-  {{{MLKC_CELL_RAW_DATA_APP}}}_postgis
-)
+# Check mlkctxt to check. If void, no check will be performed. If NOTNULL, any
+# activated context will do, but will fail if no context was activated.
+MATCH_MLKCTXT=
+# Name of volumes to be deleted here, separated by an space and no quotes. Can
+# be multiline.
+VOLUMES=(cell_db_postgis)
 
 
 
@@ -25,16 +24,10 @@ VOLUMES=(
 
 # ---
 
-# Check mlkcontext
-if [ ! -z "${MATCH_MLKCONTEXT}" ] ; then
+# Check mlkctxt is present at the system
+if command -v mlkctxt &> /dev/null ; then
 
-  if [ ! "$(mlkcontext)" = "$MATCH_MLKCONTEXT" ] ; then
-
-    echo Please initialise context $MATCH_MLKCONTEXT
-
-    exit 1
-
-  fi
+  if ! mlkctxt -c $MATCH_MLKCTXT ; then exit 1 ; fi
 
 fi
 
@@ -49,6 +42,11 @@ if [ ! -z "${VOLUMES}" ] ; then
     VOLUMES_F="${VOLUMES_F} ${E} "
 
   done
+
+else
+
+  echo No volumes provided, exiting...
+  exit 1
 
 fi
 

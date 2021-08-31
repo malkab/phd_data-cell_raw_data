@@ -4,7 +4,7 @@
 
 # -----------------------------------------------------------------
 #
-# psql session to DB.
+# psql session to DB, local.
 #
 # -----------------------------------------------------------------
 #
@@ -12,8 +12,8 @@
 # session or run a SQL script with the same client.
 #
 # -----------------------------------------------------------------
-# Check mlkctxt to check. If void, no check will be performed. If NOTNULL, any
-# activated context will do, but will fail if no context was activated.
+# Check mlkctxt to check. If void, no check will be performed. If NOTNULL,
+# any activated context will do, but will fail if no context was activated.
 MATCH_MLKCTXT=
 # The version of PG to use. Mandatory.
 PG_DOCKER_TAG=holistic_hornet
@@ -24,7 +24,7 @@ POSTGRESGROUPID=
 # The network to connect to. Remember that when attaching to the network of an
 # existing container (using container:name) the HOST is "localhost". Also the
 # host network can be connected using just "host".
-NETWORK=$MLKC_CELL_RAW_DATA_NETWORK
+NETWORK=cell
 # These two options are mutually exclusive. Use null at both for an interactive
 # psql session. In case of passing a script, files must exist at a mounted
 # volume at the VOLUMES section, referenced by a full path. By default, the
@@ -38,22 +38,22 @@ COMMAND=
 ID_ROOT=cell_raw_data_psql
 # Unique? If true, no container with the same name can be created. Defaults to
 # true.
-UNIQUE=
+UNIQUE=false
 # Work dir. Use $(pwd) paths. Defaults to /.
-WORKDIR=$(pwd)/../../
+WORKDIR=$(pwd)
 # The host, defaults to localhost.
-HOST=$MLKC_CELL_RAW_DATA_HOST
+HOST={{{MLKC_CELL_RAW_DATA_PG_HOST}}}
 # The port, defaults to 5432.
-PORT=$MLKC_CELL_RAW_DATA_PG_PORT
+PORT={{{MLKC_CELL_RAW_DATA_PG_PORT}}}
 # The user, defaults to postgres.
-USER=$MLKC_SYSTEM_KEPLER_PG_USER
+USER={{{MLKC_CELL_RAW_DATA_PG_CELL_MASTER_USER}}}
 # The pass, defaults to postgres.
-PASS=$MLKC_SYSTEM_KEPLER_PG_PASS
+PASS={{{MLKC_CELL_RAW_DATA_PG_CELL_MASTER_PASS}}}
 # The DB, defaults to postgres.
 DB=postgres
 # Declare volumes, a line per volume, complete in source:destination form. No
 # strings needed, $(pwd)/../data/:/ext_src/ works perfectly. Defaults to ().
-VOLUMES=($(pwd)/../../../:$(pwd)/../../../)
+VOLUMES=($(pwd)/../../:$(pwd)/../../)
 # Env vars. Use ENV_VAR_NAME_CONTAINER=ENV_VAR_NAME_HOST format. Defaults to ().
 ENV_VARS=
 # Output to files. This will run the script silently and output results and
@@ -183,7 +183,7 @@ else
 
 fi
 
-echo   docker run -ti --rm \
+eval   docker run -ti --rm \
           $NETWORK \
           $CONTAINER_NAME_F \
           $CONTAINER_HOST_NAME_F \
