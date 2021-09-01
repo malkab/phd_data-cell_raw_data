@@ -34,6 +34,9 @@ export MLKC_CELL_RAW_DATA_PG_CELL_MASTER_PASS=$MLKC_SYSTEM_KEPLER_PG_PASS_CELL_M
 # User cell_readonly
 export MLKC_CELL_RAW_DATA_PG_CELL_READONLY_PASS=$MLKC_SYSTEM_KEPLER_PG_PASS_CELL_READONLY
 
+# User nacional for the proyecto_nacional DB
+export MLKC_CELL_RAW_DATA_PG_NACIONAL_PASS=$MLKC_SYSTEM_KEPLER_PG_PASS_NACIONAL
+
 # -----
 # PG Config for 64GB RAM, 8 CPU, SSD
 # This is for PG configuration file, not for the pool

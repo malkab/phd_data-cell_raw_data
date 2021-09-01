@@ -36,6 +36,9 @@ export MLKC_CELL_RAW_DATA_PG_CELL_MASTER_PASS=cell_master
 export MLKC_CELL_RAW_DATA_PG_CELL_READONLY_USER=cell_readonly
 export MLKC_CELL_RAW_DATA_PG_CELL_READONLY_PASS=cell_readonly
 
+# User nacional for the proyecto_nacional DB
+export MLKC_CELL_RAW_DATA_PG_NACIONAL_PASS=nacional
+
 # -----
 # PG Config for 64GB RAM, 8 CPU, SSD
 # This is for PG configuration file, not for the pool

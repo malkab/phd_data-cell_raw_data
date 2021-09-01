@@ -21,4 +21,9 @@ create user :dbreadonlyuser with
 password '{{{MLKC_CELL_RAW_DATA_PG_CELL_READONLY_PASS}}}'
 NOSUPERUSER LOGIN NOCREATEDB NOCREATEROLE NOREPLICATION;
 
+-- This is for the proyecto_nacional DB
+create user nacional with
+password '{{{MLKC_CELL_RAW_DATA_PG_NACIONAL_PASS}}}'
+NOSUPERUSER LOGIN NOCREATEDB NOCREATEROLE NOREPLICATION;
+
 commit;

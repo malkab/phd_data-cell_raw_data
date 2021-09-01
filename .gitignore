@@ -23,4 +23,3 @@ docker/020-swarms/configs/postgresql.conf
 docker/020-swarms/docker-compose.yaml
 docker/020-swarms/INSTANCE
 src/010-preparations.sql
-src/020-db_permissions.sql
