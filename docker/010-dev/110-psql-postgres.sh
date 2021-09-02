@@ -16,7 +16,7 @@
 # activated context will do, but will fail if no context was activated.
 MATCH_MLKCTXT=
 # The version of PG to use. Mandatory.
-PG_DOCKER_TAG=holistic_hornet
+PG_DOCKER_TAG=$MLKC_CELL_RAW_DATA_DOCKER_IMAGE_TAG
 # PostgreSQL user UID and GID. Defaults to 1000/1000, the default postgres
 # server user at the image, needed to run the PostgreSQL server without root.
 POSTGRESUSERID=
@@ -42,13 +42,13 @@ UNIQUE=
 # Work dir. Use $(pwd) paths. Defaults to /.
 WORKDIR=$(pwd)/../../
 # The host, defaults to localhost.
-HOST=$MLKC_CELL_RAW_DATA_HOST
+HOST=$MLKC_CELL_RAW_DATA_SSH_HOST
 # The port, defaults to 5432.
 PORT=$MLKC_CELL_RAW_DATA_PG_PORT
 # The user, defaults to postgres.
-USER=$MLKC_SYSTEM_KEPLER_PG_USER
+USER=
 # The pass, defaults to postgres.
-PASS=$MLKC_SYSTEM_KEPLER_PG_PASS
+PASS=$MLKC_CELL_RAW_DATA_PG_PASS
 # The DB, defaults to postgres.
 DB=postgres
 # Declare volumes, a line per volume, complete in source:destination form. No
@@ -183,7 +183,7 @@ else
 
 fi
 
-echo   docker run -ti --rm \
+eval   docker run -ti --rm \
           $NETWORK \
           $CONTAINER_NAME_F \
           $CONTAINER_HOST_NAME_F \

@@ -19,6 +19,11 @@ export MLKC_CELL_RAW_DATA_INSTANCE_GENERATION=$(date +"%Y%m%d-%H%M%S")
 export MLKC_CELL_RAW_DATA_DOCKER_IMAGE_TAG=holistic_hornet
 
 # -----
+# Docker Network
+# -----
+export MLKC_CELL_RAW_DATA_NETWORK=cell_raw_data_$MLKC_CELL_RAW_DATA_DOCKER_IMAGE_TAG
+
+# -----
 # PostGIS for local deployment of both dev and SWARM
 # -----
 export MLKC_CELL_RAW_DATA_PG_HOST=cell_raw_data_postgis

@@ -10,8 +10,6 @@
 #
 # ---------------------------
 export MLKC_CELL_RAW_DATA_INSTANCE_NAME=kepler
-export MLKC_CELL_RAW_DATA_VERSION=1.0.0
-export MLKC_CELL_RAW_DATA_INSTANCE_GENERATION=$(date +"%Y%m%d-%H%M%S")
 
 # -----
 # SSH access
@@ -23,6 +21,7 @@ export MLKC_CELL_RAW_DATA_REMOTE_FOLDER=$MLKC_SYSTEM_KEPLER_USER@$MLKC_SYSTEM_KE
 # -----
 # PostGIS for local deployment
 # -----
+export MLKC_CELL_RAW_DATA_PG_HOST=localhost
 export MLKC_CELL_RAW_DATA_PG_PORT=5643
 
 # User postgres

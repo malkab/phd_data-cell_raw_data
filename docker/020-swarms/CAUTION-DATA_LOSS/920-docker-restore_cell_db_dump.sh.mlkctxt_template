@@ -15,19 +15,19 @@
 # activated context will do, but will fail if no context was activated.
 MATCH_MLKCTXT=
 # The version of PG to use. Mandatory.
-PG_DOCKER_TAG=holistic_hornet
+PG_DOCKER_TAG={{{MLKC_CELL_RAW_DATA_DOCKER_IMAGE_TAG}}}
 # Dump name to restore, including any folder, relative to this script's folder.
 # Mandatory.
 DUMP_NAME=../db_backups/cell_db
 # The network to connect to. Remember that when attaching to the network of an
 # existing container (using container:name) the HOST is "localhost". Also the
 # host network can be connected using just "host".
-NETWORK=cell_raw_data_{{{MLKC_CELL_RAW_DATA_DOCKER_IMAGE_TAG}}}
+NETWORK={{{MLKC_CELL_RAW_DATA_NETWORK}}}
 # Container identifier root. This is used for both the container name (adding an
 # UID to avoid clashing) and the container host name (without UID). Incompatible
 # with NETWORK container:name option. If blank, a Docker engine default name
 # will be assigned to the container.
-ID_ROOT=cell_db_dump_restore
+ID_ROOT=
 # Unique? If true, no container with the same name can be created. Defaults to
 # true.
 UNIQUE=
@@ -36,7 +36,7 @@ ADMIN_DB=postgres
 # The host, defaults to localhost.
 HOST={{{MLKC_CELL_RAW_DATA_PG_HOST}}}
 # The port, defaults to 5432.
-PORT=5432
+PORT={{{MLKC_CELL_RAW_DATA_PG_PORT}}}
 # The user, defaults to postgres.
 USER={{{MLKC_CELL_RAW_DATA_PG_USER}}}
 # The pass, defaults to postgres.
