@@ -16,7 +16,7 @@
 # any activated context will do, but will fail if no context was activated.
 MATCH_MLKCTXT=
 # The version of PG to use. Mandatory.
-PG_DOCKER_TAG=holistic_hornet
+PG_DOCKER_TAG={{{MLKC_CELL_RAW_DATA_DOCKER_IMAGE_TAG}}}
 # PostgreSQL user UID and GID. Defaults to 1000/1000, the default postgres
 # server user at the image, needed to run the PostgreSQL server without root.
 POSTGRESUSERID=
@@ -24,7 +24,7 @@ POSTGRESGROUPID=
 # The network to connect to. Remember that when attaching to the network of an
 # existing container (using container:name) the HOST is "localhost". Also the
 # host network can be connected using just "host".
-NETWORK=cell
+NETWORK={{{MLKC_CELL_RAW_DATA_NETWORK}}}
 # These two options are mutually exclusive. Use null at both for an interactive
 # psql session. In case of passing a script, files must exist at a mounted
 # volume at the VOLUMES section, referenced by a full path. By default, the
@@ -35,7 +35,7 @@ COMMAND=
 # UID to avoid clashing) and the container host name (without UID). Incompatible
 # with NETWORK container:name option. If blank, a Docker engine default name
 # will be assigned to the container.
-ID_ROOT=cell_raw_data_psql
+ID_ROOT=
 # Unique? If true, no container with the same name can be created. Defaults to
 # true.
 UNIQUE=false
@@ -53,7 +53,7 @@ PASS={{{MLKC_CELL_RAW_DATA_PG_CELL_READONLY_PASS}}}
 DB=postgres
 # Declare volumes, a line per volume, complete in source:destination form. No
 # strings needed, $(pwd)/../data/:/ext_src/ works perfectly. Defaults to ().
-VOLUMES=($(pwd)/../../:$(pwd)/../../)
+VOLUMES=($(pwd):$(pwd))
 # Env vars. Use ENV_VAR_NAME_CONTAINER=ENV_VAR_NAME_HOST format. Defaults to ().
 ENV_VARS=
 # Output to files. This will run the script silently and output results and
