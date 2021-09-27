@@ -20,6 +20,7 @@ volumes:
 services:
   cell_raw_data_postgis:
     image: malkab/postgis:{{{MLKC_CELL_RAW_DATA_DOCKER_IMAGE_TAG}}}
+    shm_size: "20GB"
 
     environment:
       - PASSWORD={{{MLKC_CELL_RAW_DATA_PG_PASS}}}
@@ -30,8 +31,14 @@ services:
     ports:
       - "{{{MLKC_CELL_RAW_DATA_PG_PORT}}}:5432"
 
+    tmpfs:
+      - /tmp:size=20GB
+
     volumes:
       - cell_raw_data_postgis:/data
+      - type: tmpfs
+        target: /dev/shm
+
 
     configs:
       - source: pg_hba_conf
