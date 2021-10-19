@@ -2,7 +2,7 @@ version: '3.5'
 
 networks:
   cell_raw_data:
-    name: cell_raw_data_{{{MLKC_CELL_RAW_DATA_DOCKER_IMAGE_TAG}}}
+    name: cell_raw_data_{{{docker_image}}}
     external: false
     attachable: true
 
@@ -15,21 +15,21 @@ configs:
 volumes:
   cell_raw_data_postgis:
     external: false
-    name: cell_raw_data_postgis_{{{MLKC_CELL_RAW_DATA_DOCKER_IMAGE_TAG}}}
+    name: cell_raw_data_postgis_{{{docker_image}}}
 
 services:
   cell_raw_data_postgis:
-    image: malkab/postgis:{{{MLKC_CELL_RAW_DATA_DOCKER_IMAGE_TAG}}}
+    image: malkab/postgis:{{{docker_image}}}
     shm_size: "20GB"
 
     environment:
-      - PASSWORD={{{MLKC_CELL_RAW_DATA_PG_PASS}}}
+      - PASSWORD={{{postgres.pg_user.pass}}}
 
     networks:
       - cell_raw_data
 
     ports:
-      - "{{{MLKC_CELL_RAW_DATA_PG_PORT}}}:5432"
+      - "{{{postgres.port}}}:5432"
 
     tmpfs:
       - /tmp:size=20GB

@@ -1,0 +1,67 @@
+# Variable paths are converted into case-insensitive envvars, so don't rely on
+# case to differentiate variables or paths. Do not end variable paths with the
+# reserved words "default", "system", "SYSTEM", or "NOTNULL".
+
+# WARNING! Variable values must be quoted.
+# WARNING! Don't use "-" in variable paths.
+
+# Use [[SYSTEM.a.b]] to reference a path in the system context.
+
+# Refer to ENVVARS in scripts using paths without context with the mlkp command,
+# like in:
+#   mlkp a.b.c
+#   mlkp SYSTEM.a.b.c
+
+# The list of available context. The "system", "SYSTEM", "default", and
+# "NOTNULL" context names are reserved and can't be used. This section is
+# optional if there are no other contexts aside the default one. There is no
+# need to specify the default context anyway.
+contexts:
+  - kepler_localhost
+
+# Docker image to use
+docker_image: "holistic_hornet"
+
+# Docker network
+docker_network: "cell_raw_data_[[docker_image]]"
+
+# Remote folder
+remote_folder: "/home/apps/cell_raw_data"
+
+# SSH credentials
+ssh:
+  host: "[[SYSTEM.kepler.host]]"
+  user: "[[SYSTEM.kepler.ssh.user]]"
+
+# PostgreSQL Server
+postgres:
+  host: "cell_raw_data_postgis"
+  port: "5643"
+  pg_user:
+    user: "[[SYSTEM.kepler.cell_db.pg_user.user]]"
+    pass: "[[SYSTEM.kepler.cell_db.pg_user.pass]]"
+  cell_master_user:
+    user: "[[SYSTEM.kepler.cell_db.cell_master_user.user]]"
+    pass: "[[SYSTEM.kepler.cell_db.cell_master_user.pass]]"
+  cell_readonly_user:
+    user: "[[SYSTEM.kepler.cell_db.cell_readonly_user.user]]"
+    pass: "[[SYSTEM.kepler.cell_db.cell_readonly_user.pass]]"
+
+# PostgreSQL configuration
+postgres_config:
+  max_connections: "200"
+  shared_buffers: "40GB"
+  effective_cache_size: "122GB"
+  maintenance_work_mem: "2GB"
+  checkpoint_completion_target: "0.7"
+  wal_buffers: "16MB"
+  default_statistics_target: "500"
+  random_page_cost: "1.1"
+  effective_io_concurrency: "200"
+  work_mem: "332MB"
+  min_wal_size: "512MB"
+  max_wal_size: "2GB"
+  max_worker_processes: "8"
+  max_parallel_workers_per_gather: "4"
+  max_parallel_workers: "8"
+  max_parallel_maintenance_workers: "4"

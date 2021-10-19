@@ -38,13 +38,13 @@ CONTAINER_NAME=db_backup
 # The version of Docker PG image to use.
 POSTGIS_DOCKER_TAG=gargantuan_giraffe
 # The host.
-HOST={{{MLKC_CELL_RAW_DATA_PG_HOST}}}
+HOST={{{postgres.host}}}
 # The port.
-PORT={{{MLKC_CELL_RAW_DATA_PG_PORT}}}
+PORT={{{postgres.port}}}
 # The user.
-USER={{{MLKC_CELL_RAW_DATA_PG_USER_CELL_MASTER}}}
+USER={{{postgres.cell_master_user.user}}}
 # The pass.
-PASS={{{MLKC_CELL_RAW_DATA_PG_PASS_CELL_MASTER}}}
+PASS={{{postgres.cell_master_user.pass}}}
 # Dump format (p plain text, c custom, d directory, t tar).
 FORMAT=c
 # Verbose.

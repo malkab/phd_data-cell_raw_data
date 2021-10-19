@@ -15,9 +15,9 @@
 # enforce any context.
 MATCH_MLKCTXT=NOTNULL
 # Remote SSH username. Mandatory.
-USER=$MLKC_CELL_RAW_DATA_SSH_USER
+USER=$(mlkp ssh.user)
 # Host. Mandatory.
-HOST=$MLKC_CELL_RAW_DATA_SSH_HOST
+HOST=$(mlkp ssh.host)
 # SSH port. Defaults to 22.
 PORT=
 # Amazon AWS PEM key (it´s a path to a file, or blank if not applicable).

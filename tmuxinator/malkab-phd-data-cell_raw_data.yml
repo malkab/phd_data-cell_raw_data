@@ -5,7 +5,8 @@ windows:
   - psql: >
       cd docker/010-dev ;
       sleep 0.2 ;
-      clear
+      clear ;
+      echo psql here
 
   - local-compose: >
       cd docker/010-dev ;

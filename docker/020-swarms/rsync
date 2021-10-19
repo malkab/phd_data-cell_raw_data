@@ -18,7 +18,7 @@ MATCH_MLKCTXT=NOTNULL
 # Source and destination folder, can be as simple as . or as complex as an
 # user@host:/path. Mandatory both.
 SOURCE_FOLDER=.
-DESTIN_FOLDER=$MLKC_CELL_RAW_DATA_REMOTE_FOLDER
+DESTIN_FOLDER=$(mlkp ssh.user)@$(mlkp ssh.host):/$(mlkp remote_folder)
 # Excludes, for example ("a*" "e*" "r*"). Defaults to some commonly excluded
 # files: .DS_Store, rsync*, .gitignore, .git, *.mlkc_template.
 EXCLUDES=(

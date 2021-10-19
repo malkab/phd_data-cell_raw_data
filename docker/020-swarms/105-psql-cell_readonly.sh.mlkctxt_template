@@ -42,13 +42,13 @@ UNIQUE=false
 # Work dir. Use $(pwd) paths. Defaults to /.
 WORKDIR=$(pwd)
 # The host, defaults to localhost.
-HOST={{{MLKC_CELL_RAW_DATA_PG_HOST}}}
+HOST={{{postgres.host}}}
 # The port, defaults to 5432.
-PORT={{{MLKC_CELL_RAW_DATA_PG_PORT}}}
+PORT={{{postgres.port}}}
 # The user, defaults to postgres.
-USER={{{MLKC_CELL_RAW_DATA_PG_CELL_READONLY_USER}}}
+USER={{{postgres.cell_readonly_user.user}}}
 # The pass, defaults to postgres.
-PASS={{{MLKC_CELL_RAW_DATA_PG_CELL_READONLY_PASS}}}
+PASS={{{postgres.cell_readonly_user.pass}}}
 # The DB, defaults to postgres.
 DB=postgres
 # Declare volumes, a line per volume, complete in source:destination form. No

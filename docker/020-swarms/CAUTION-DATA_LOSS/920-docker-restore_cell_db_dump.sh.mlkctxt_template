@@ -33,14 +33,14 @@ ID_ROOT=
 UNIQUE=
 # Admin DB, defaults to postgres.
 ADMIN_DB=postgres
-# The host, defaults to localhost.
-HOST={{{MLKC_CELL_RAW_DATA_PG_HOST}}}
-# The port, defaults to 5432.
-PORT={{{MLKC_CELL_RAW_DATA_PG_PORT}}}
-# The user, defaults to postgres.
-USER={{{MLKC_CELL_RAW_DATA_PG_USER}}}
-# The pass, defaults to postgres.
-PASS={{{MLKC_CELL_RAW_DATA_PG_PASS}}}
+# The host.
+HOST={{{postgres.host}}}
+# The port.
+PORT={{{postgres.port}}}
+# The user.
+USER={{{postgres.cell_master_user.user}}}
+# The pass.
+PASS={{{postgres.cell_master_user.pass}}}
 # Verbose, defaults to true.
 VERBOSE=
 # Dump format (p plain text, c custom, d directory, t tar), defaults to c.
