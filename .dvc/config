@@ -1,6 +1,0 @@
-[core]
-    remote = storage
-[cache]
-    local = storage
-['remote "storage"']
-    url = /mnt/samsung_hdd_1_5tb/dvc_storage/malkab-phd-data/malkab-phd-data-cell_raw_data
